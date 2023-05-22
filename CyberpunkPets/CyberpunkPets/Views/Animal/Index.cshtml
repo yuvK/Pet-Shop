@@ -1,0 +1,31 @@
+﻿@using CyberpunkPets.Models;
+@model IEnumerable<Animal>
+@{
+    ViewBag.Title = "CyberPunk Pets";
+
+}
+<body class="index">
+
+    <h1>Our two most popular pets:</h1>
+
+ <div class="container row top2">
+        @foreach (var animal in Model)
+        {
+
+            <div class="flip-card">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <h5 class="card-title">@animal.Name</h5>
+                        <img src="~/Images/ProfilePics/@animal.PictureName" alt="Profile Picture" style="width:inherit;height:300px;">
+                    <p class="card-text">Comments: <b>@animal.Comments!.Count</b></p>
+                    </div>
+                    <div class="flip-card-back">
+                        <h5 class="card-title">@animal.Name</h5>
+                        <p>@animal.Description</p>
+                        <a href="@Url.Action("Details", "Animal", new { id = animal.AnimalId })" class="btn btn-primary">More Info</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</body>

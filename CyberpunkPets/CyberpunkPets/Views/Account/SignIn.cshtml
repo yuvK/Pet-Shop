@@ -1,0 +1,32 @@
+﻿
+@*for signing in as admin user name should be "Admin"*@
+
+@using CyberpunkPets.Models;
+@model LoginModel
+@{
+    ViewData["Title"] = "SignIn";
+}
+
+<h1>Sign In:</h1>
+<div style="min-height: 495px">
+    <div class="container-fluid">
+        <form method="post" asp-action="SignIn" class="card">
+            <div>
+                <label asp-for="Username" class="control-label">Username</label>
+                <input asp-for="Username" class="form-control" style="font-family:'Segoe UI'" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div>
+                <label asp-for="Password" class="control-label">Password</label>
+                <input asp-for="Password" class="form-control" style="font-family:'Segoe UI'" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            @if (!string.IsNullOrWhiteSpace(ViewBag.ErrorMsg))
+            {
+                @ViewBag.ErrorMsg;
+            }
+            <input type="submit" value="Sign" class="btn btn-info" />
+        </form>
+    </div>
+</div>
+

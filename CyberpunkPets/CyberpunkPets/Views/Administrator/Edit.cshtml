@@ -1,0 +1,66 @@
+﻿@using CyberpunkPets.Models;
+@model Animal
+@{
+    ViewBag.Title = "Edit";
+
+    var categories = ViewBag.Categories as IEnumerable<Category>;
+}
+<body class="edit">
+
+    <h1>Edit</h1>
+    <div class="flex-container">
+        <form method="post" asp-action="Edit" asp-controller="Administrator" enctype="multipart/form-data" class="card child" id="animalEditForm">
+            <input type="hidden" asp-for="AnimalId"/>
+            <input type="hidden" asp-for="PictureName" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input class="form-control" asp-for="Name" />
+                <span asp-validation-for="Name" class="text-danger validation-message"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Age" class="control-label"></label>
+                <input class="form-control" asp-for="Age" />
+                <span asp-validation-for="Age" class="text-danger validation-message"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <select class="form-control" asp-for="CategoryId">
+                    <option value="0">++Select Category++</option>
+                    @foreach (var item in categories!)
+                    {
+                        <option value="@item.CategoryId">@item.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger validation-message"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea class="form-control" asp-for="Description"></textarea>
+                <span asp-validation-for="Description" class="text-danger validation-message"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PictureName" class="control-label"></label>
+                <input type="file" asp-for="ProfilePic" id="fileInput" accept="*/Image" class="form-control" />
+                <span asp-validation-for="PictureName" class="text-danger validation-message"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+
+        </form>
+        <div class="imgChild">
+            <img src="~/Images/ProfilePics/@Model.PictureName" alt="ProfilePic" asp-append-version="true" height="500" id="pic" />
+        </div>
+    </div>
+    <script>
+        var fileInput = document.getElementById("fileInput"); //func to update the picture if selecting a new one
+        fileInput.addEventListener("change", function () {
+            var file = fileInput.files[0];
+            var imageUrl = URL.createObjectURL(file);
+            document.getElementById("pic").src = imageUrl;
+        });
+    </script>
+
+</body>
+
+

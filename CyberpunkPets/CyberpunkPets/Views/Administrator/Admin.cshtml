@@ -1,0 +1,64 @@
+﻿@using CyberpunkPets.Models;
+@model IEnumerable<Animal>
+
+@{
+    ViewBag.Title = "Administrator";
+}
+<body class="admin">
+
+    <h1>Administrator Page:</h1>
+    <div class="container" style="margin-bottom:50px">
+        <div style="float:left";>
+            <partial name="_FilterByCategory" model="@new Category()" />
+        </div>
+        <div style="float:right">
+            <a class="btn btn-success addBtn" asp-action="CreateNewAnimal" asp-controller="Administrator" style="color:red">Add New Animal</a>
+        </div>
+    </div>
+    <div class="container adminList">
+        <div class="row">
+            <div class="col">Name</div>
+            <div class="col"></div>
+            <div class="col">Age</div>
+            <div class="col col-6">Description</div>
+            <div class="col">Category</div>
+            <div class="col">No. of comments</div>
+            <div class="col"></div>
+            <hr />
+        </div>
+        @foreach (var animal in Model)
+        {
+            <div class="row hoverFx">
+                <div class="col"> @animal.Name</div>
+                <div class="col"><img src="~/Images/ProfilePics/@animal.PictureName" asp-append-version height="120"></div>
+                <div class="col">@animal.Age</div>
+                <div class="col col-6">@animal.Description</div>
+                <div class="col">@animal.Category!.Name</div>
+                <div class="col">@animal.Comments!.Count</div>
+                <div class="col">
+                    <div class="row">
+                        <a asp-controller="Administrator" asp-action="Edit" asp-route-id="@animal.AnimalId" data-toggle="tooltip" title="Edit Animal">
+                            <i class="fa-regular fa-edit"></i>
+                        </a>
+                    </div>
+                    <div class="row">
+                        <form method="post" asp-controller="Administrator" asp-action="Delete" id="confirmationFrom">
+                            <input type="hidden" name="id" value="@animal.AnimalId" />
+                            <button type="submit" onclick="return confirm('Are you sure you want to delete @animal.Name?')" id="aToBtn"
+                                style="background-color: transparent;border: none;color: inherit;cursor: pointer;padding: 0;"
+                                data-toggle="tooltip" title="Delete Animal">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <hr class="m-2">
+            </div>
+        }
+    </div>
+    <script>
+
+    </script>
+</body>
+
+

@@ -1,0 +1,80 @@
+﻿@using CyberpunkPets.Models;
+@model Animal
+@{
+    ViewBag.Title = "Create New Animal";
+
+    var categories = ViewBag.Categories as IEnumerable<Category>;
+}
+<body class="createNew">
+
+    <h1>Create a new animal</h1>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-4">
+                <form method="post" asp-action="CreateNewAnimal" asp-controller="Administrator" enctype="multipart/form-data" class="card createAnimalCard">
+                    <input type="hidden" asp-for="PictureName" id="picNameInput"/>
+                    <div>
+                        <label asp-for="Name" class="control-label"></label>
+                        <input class="form-control" asp-for="Name" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="Age" class="control-label"></label>
+                        <input class="form-control" asp-for="Age" />
+                        <span asp-validation-for="Age" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="CategoryId" class="control-label"></label>
+                        <select class="form-control" asp-for="CategoryId">
+                            <option value="0">++Select Category++</option>
+                            @foreach (var item in categories!)
+                            {
+                                <option value="@item.CategoryId">@item.Name</option>
+                            }
+                        </select>
+                        <span asp-validation-for="CategoryId" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="Description" class="control-label"></label>
+                        <textarea class="form-control" asp-for="Description"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <label asp-for="PictureName" class="control-label"></label>
+                        <input type="file" class="form-control" asp-for="ProfilePic" accept="image/*" id="imageInput" onchange="previewImage()"/>
+                        <span asp-validation-for="PictureName" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-success">Add</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-3">
+                <partial name="_AddCategoryForm" model="@new Category()" />
+            </div>
+            <div class="col-5">
+                <img id="imagePreview" class="addAnimalPic" src="#" alt="profile pic" 
+                style="display:none;width:400px;height:400px;border:solid;border-color:#D1C5C0;margin:50px">
+            </div>
+        </div>
+    </div>
+    <script>
+        function previewImage() {
+            var input = document.getElementById("imageInput"); //func to show the selected image on selection
+            var preview = document.getElementById("imagePreview");
+            $("#picNameInput").val(input.value)
+            console.log($("#picNameInput"))
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.style.display = "block";
+                }
+                reader.readAsDataURL(input.files[0]);
+            } else {
+                preview.src = "";
+                preview.style.display = "none";
+            }
+        }
+    </script>
+</body>

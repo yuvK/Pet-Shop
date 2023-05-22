@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <script src="~/scripts/jquery.js"></script>
+    <script src="~/scripts/jquery.validate.js"></script>
+    <script src="~/scripts/jquery.validate.unobtrusive.js"></script>
+
+    <script src="~/scripts/popper.js"></script>
+    <script src="~/scripts/bootstrap.js"></script>
+    <script src="~/scripts/bootstrap.bundle.js"></script>
+    <script src="https://kit.fontawesome.com/c7ec1474b3.js" crossorigin="anonymous"></script>
+
+    <link href="~/styles/bootstrap_vapor.css" rel="stylesheet" />
+    <link href="~/styles/StyleSheet.css" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-action="Index">
+                    <img src="~/images/logofix2.png" width="90" alt="Logo">
+                </a>
+                <div class="navbar-collapse navBtns">
+                    <ul class="navbar-nav flex-grow-7">
+                        <li class=" nav-btn">
+                            <a class="nav-link push" asp-controller="Animal" asp-action="Index">Home</a>
+                        </li>
+                        <li class=" nav-btn">
+                            <a class="nav-link push" asp-controller="Animal" asp-action="Catalog">Catalog</a>
+                        </li>
+                        <li class=" nav-btn">
+                            <a class="nav-link push" asp-controller="Administrator" asp-action="Admin">Admin</a>
+                        </li>
+                            @if (User.Identity!.IsAuthenticated)
+                            {
+                            <li class=" nav-btn">
+                                <a class="nav-link push" asp-action="Logout" asp-controller="Account">Logout</a>
+                            </li>
+                            }
+                            else
+                            {
+                            <li class=" nav-btn">
+                                <a class="nav-link push" asp-controller="Account" asp-action="SignIn">Sign In</a>
+                            </li>
+                            <li class=" nav-btn">
+                                <a class="nav-link push" asp-controller="Account" asp-action="Login">Log In</a>
+                            </li>
+                            }
+                    </ul>
+                    <ul class="neon navbar-nav ms-auto">
+                        CyberPunk Pets
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div>
+        @RenderBody()
+    </div>
+    <script>
+        $(document).ready(function () { //nav bar active script
+            $('.nav-link').each(function () {
+                if ($(this).attr('href') === window.location.pathname) {
+                    $(this).addClass('navActive');
+                }
+            });
+        });
+        $(document).ready(function () { //tooltip script
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
+</body>
+    <footer class="footer container-fluid">
+        <div class="row">
+            <div class="footerLogo col">
+                <img src="~/images/logofix2.png" alt="Company Logo" width="150px" />
+            </div>
+            <div class="footerFlex col">
+                <div class="footerChild">
+                    <h5>Follow us:</h5>
+                    <ul class="list-inline social-buttons">
+                        <li class="list-inline-item"><a href="https://twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                        <li class="list-inline-item"><a href="https://www.linkedin.com/" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+                    </ul>
+                </div>
+                <div class="footerChild row">
+                    <h5>Visit us:</h5>
+                    <a href="https://ul.waze.com/ul?ll=32.09026469%2C34.88561511&navigate=yes&zoom=17&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location" target="_blank">
+                        <i class="fab fa-waze"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col">
+                <partial name="_CarouselView" />
+            </div>
+        </div>
+        <hr />
+        <div>
+            <a href="#">Yuval Kfir</a> &copy;2023, All rights reserved.
+        </div>
+    </footer>
+</html>

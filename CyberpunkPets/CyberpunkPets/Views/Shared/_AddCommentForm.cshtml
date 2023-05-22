@@ -1,0 +1,13 @@
+﻿@using CyberpunkPets.Models;
+@model Comment
+
+<div>
+    <h4>Add A Comment:</h4>
+    <form asp-action="AddComment" method="post">
+        <input type="hidden" asp-for="AnimalId">
+        <textarea rows="4" asp-for="Content"></textarea>
+        <span asp-validation-for="Content" class="text-danger"></span>
+        <br>
+        <button type="submit" class="btn btn-primary">Add</button>
+    </form>
+</div>

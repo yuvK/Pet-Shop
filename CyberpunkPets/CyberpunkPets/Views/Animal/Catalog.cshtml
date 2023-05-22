@@ -1,0 +1,35 @@
+﻿@using CyberpunkPets.Models;
+@model IEnumerable<Animal>
+@{
+    ViewBag.Title = "Catalog";
+
+    var headers = new string[] { "Name", " " };
+
+}
+<body class="catalog">
+
+    <h1>Catalog:</h1>
+    <div class="container" style="margin-bottom:10px">
+        <partial name="_FilterByCategory" model="@new Category()" />
+    </div>
+    <div class="d-grid catalogGrid">
+        @foreach (var animal in Model)
+        {
+            <div class="card align-items-center">
+                <div class="card-header">
+                    @animal.Name
+                </div>
+                <div class="card-body">
+                    <img src="~/Images/ProfilePics/@animal.PictureName" asp-append-version height="250" />
+                </div>
+                <div class="card-footer">
+                    <a asp-action="Details" asp-route-id="@animal.AnimalId" class="btn btn-primary">Details</a>
+                    @*<a href="@Url.Action("Details", "Animal", new { id = animal.AnimalId })" class="btn btn-primary">Details</a>*@
+                </div>
+
+            </div>
+        }
+    </div>
+</body>
+
+
