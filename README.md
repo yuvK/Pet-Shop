@@ -1,6 +1,6 @@
 # Pet-Shop
 Sela software development course - ASP.NET CORE MVC pet store web project
-using MSSQL for data base
+using EntityFramework 6 ,MSSQL
 ![sp1](https://github.com/yuvK/Pet-Shop/assets/83789663/2b4b3a82-6978-4255-8ccd-7b500466e51e)
 ![sp2](https://github.com/yuvK/Pet-Shop/assets/83789663/891afcac-7363-4025-aeda-ad85bc7f52f7)
 ![sp3](https://github.com/yuvK/Pet-Shop/assets/83789663/01c69af4-7a75-4783-bd93-3ea393d95e44)
